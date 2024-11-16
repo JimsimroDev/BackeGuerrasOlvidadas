@@ -5,11 +5,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jimsimrodev.guerrasOlvidadas.domain.persona.Persona;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.stream.Collectors;
 
 @Service
 public class TokenService {
@@ -21,6 +23,9 @@ public class TokenService {
           .withIssuer("guerrasOlvidadas")
           .withSubject(usuario.getUsuario())
           .withClaim("id", usuario.getId())
+          .withClaim("roles", usuario.getAuthorities().stream()
+          .map(GrantedAuthority::getAuthority)  // Extraer roles
+          .collect(Collectors.toList()))
           .withExpiresAt(fechaExpiracion())
           .sign(algorithm);
     } catch (JWTCreationException exception) {

@@ -20,8 +20,8 @@ public class Perfil {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(unique = true)
-  private String rol;
+  @Enumerated(EnumType.STRING)
+  private Rol rol;
   @OneToMany(mappedBy = "rol")
   private List<Persona> persona;
 

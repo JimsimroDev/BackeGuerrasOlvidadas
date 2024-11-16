@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ public class PersonaController {
   private PasswordEncoderService passwordEncoder;
 
   @GetMapping
+  // @PreAuthorize("hasRole('CLIENTE')")
   public ResponseEntity<Page<ListarDatosPersona>> listarPersonas(@PageableDefault(size = 9) Pageable paginacion) {
     return ResponseEntity.ok(personaRepository.findByActivoTrue(paginacion).map(ListarDatosPersona::new));
   }
@@ -81,10 +83,11 @@ public class PersonaController {
 
   @PutMapping
   @Transactional
+  // @PreAuthorize("hasRole('ADMINISTRADOR')")
   public ResponseEntity<?> actualizarPersona(@RequestBody @Valid ActualizarDatosPersona atualizarDatosPersona) {
     Persona persona = personaRepository.getReferenceById(atualizarDatosPersona.id());
     persona.actualizarPersona(atualizarDatosPersona);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok("Actualicacion exitosa");
   }
 
   @DeleteMapping("/{id}")

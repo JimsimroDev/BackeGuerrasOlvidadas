@@ -12,17 +12,28 @@ public record ListarDatosPersona(
     String movil,
     String correo,
     DatosDireccion direccion,
-    DatosPerfil perfil) {
+    DatosPerfil rol
+    ) {
   public ListarDatosPersona(Persona persona) {
+
     this(
-        persona.getId(), persona.getNombre1(), persona.getNombre2(),
-        persona.getApellido1(), persona.getApellido2(),
-        persona.getMovil(), persona.getCorreo(),
+        persona.getId(),
+        persona.getNombre1(),
+        persona.getNombre2(),
+        persona.getApellido1(),
+        persona.getApellido2(),
+        persona.getMovil(),
+        persona.getCorreo(),
         new DatosDireccion(
-            persona.getDireccion().getCalle(), persona.getDireccion().getDistrito(),
-            persona.getDireccion().getCiudad(), persona.getDireccion().getNumero(),
-            persona.getDireccion().getComplemento(), persona.getDireccion().getUrbanizacion(),
-            persona.getDireccion().getCodigoPostal(), persona.getDireccion().getProvincia()),
-        persona.getRol() != null ? new DatosPerfil(persona.getRol().getId(), persona.getRol().getRol()) : null);
+            persona.getDireccion().getCalle(),
+            persona.getDireccion().getDistrito(),
+            persona.getDireccion().getCiudad(),
+            persona.getDireccion().getNumero(),
+            persona.getDireccion().getComplemento(),
+            persona.getDireccion().getUrbanizacion(),
+            persona.getDireccion().getCodigoPostal(),
+            persona.getDireccion().getProvincia()
+        ),
+    persona.getRol() != null ? new DatosPerfil(persona.getRol().getId(), persona.getRol().getRol()) : null);
   }
 }

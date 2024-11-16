@@ -16,6 +16,6 @@ Guerras Olvidadas es un juego que permite a los usuarios sumergirse en un mundo 
 - Java: Lenguaje principal para el desarrollo de la API.
 - Spring Boot: Framework que simplifica el desarrollo de aplicaciones Java.
 - Spring Security: Manejo de la autenticación y autorización de usuarios.
- - Hibernate: ORM para la gestión de la persistencia de datos en la base de datos.
+ - JPA: ORM para la gestión de la persistencia de datos en la base de datos.
  - MySQL: Base de datos para almacenar la información de los usuarios y otros datos del juego.
 - JPA (Java Persistence API): Para la interacción con la base de datos.

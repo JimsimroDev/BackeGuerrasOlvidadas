@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/login")
-@PreAuthorize("permitAll()")
+// @PreAuthorize("permitAll()")
 public class LoginController {
 
   @Autowired
@@ -27,7 +27,7 @@ public class LoginController {
   private AuthenticationManager authenticationManager;
 
   @PostMapping
-  public ResponseEntity atenticacion(@RequestBody @Valid AutenticationDatos autenticadionDatos) {
+  public ResponseEntity<?> atenticacion(@RequestBody @Valid AutenticationDatos autenticadionDatos) {
 
     Authentication authoken = new UsernamePasswordAuthenticationToken(autenticadionDatos.usuario(),
         autenticadionDatos.contrasena());
