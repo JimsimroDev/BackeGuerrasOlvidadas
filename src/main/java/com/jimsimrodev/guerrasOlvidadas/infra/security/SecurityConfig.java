@@ -37,6 +37,7 @@ public class SecurityConfig {
           auth.requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll();
           auth.requestMatchers(HttpMethod.POST, "/api/v1/enviarCorreo").permitAll();
           auth.requestMatchers(HttpMethod.POST, "/api/v1/personas").permitAll();
+          auth.requestMatchers(HttpMethod.GET, "/api/v1/personas").permitAll();
           auth.requestMatchers("/**").permitAll();
           auth.requestMatchers("/api/v1/personas").authenticated();
 

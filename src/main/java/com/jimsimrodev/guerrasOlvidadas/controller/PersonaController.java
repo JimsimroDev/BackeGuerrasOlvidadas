@@ -42,7 +42,7 @@ public class PersonaController {
   private PasswordEncoderService passwordEncoder;
 
   @GetMapping
-  @PreAuthorize("hasRole('ADMINISTRADOR')")
+ // @PreAuthorize("hasRole('ADMINISTRADOR')")
   public ResponseEntity<Page<ListarDatosPersona>> listarPersonas(@PageableDefault(size = 9) Pageable paginacion) {
     return ResponseEntity.ok(personaRepository.findByActivoTrue(paginacion).map(ListarDatosPersona::new));
   }
