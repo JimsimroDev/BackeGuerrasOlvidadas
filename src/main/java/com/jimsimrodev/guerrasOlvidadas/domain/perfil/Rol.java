@@ -7,6 +7,5 @@ public enum Rol {
   ADMINISTRADOR,
   ESTUDIANTE,
   CLIENTE,
-  PROFERSO
-
+  PROFESOR
 }
