@@ -18,7 +18,6 @@ import com.jimsimrodev.guerrasOlvidadas.service.PasswordEncoderService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.experimental.var;
 
 @RestController
 @RequestMapping("/api/v1/enviarCorreo")
