@@ -24,111 +24,117 @@ import lombok.NoArgsConstructor;
 @Table(name = "personas")
 public class Persona implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
-    private String nombre1;
-    private String nombre2;
-    @Column(nullable = false)
-    private String apellido1;
-    @Column(nullable = false)
-    private String apellido2;
-    @Column(nullable = false)
-    private String movil;
-    @Column(unique = true)
-    private String correo;
-    @Column(unique = true, nullable = false)
-    private String usuario;
-    @Column(nullable = false)
-    private String contrasena;
-    private Boolean activo;
-    @Embedded
-    private Direccion direccion;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @Column(nullable = false)
+  private String nombre1;
+  private String nombre2;
+  @Column(nullable = false)
+  private String apellido1;
+  @Column(nullable = false)
+  private String apellido2;
+  @Column(nullable = false)
+  private String movil;
+  @Column(unique = true)
+  private String correo;
+  @Column(unique = true, nullable = false)
+  private String usuario;
+  @Column(nullable = false)
+  private String contrasena;
+  private Boolean activo;
+  @Embedded
+  private Direccion direccion;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_rol")
-    private Perfil rol;
+  @ManyToOne
+  @JoinColumn(name = "fk_rol")
+  private Perfil rol;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HistoriaJuego> historiaJuegos;
+  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<HistoriaJuego> historiaJuegos;
 
-    public Persona(DatosRegistroPersona datosRegistroPersona) {
+  public Persona(DatosRegistroPersona datosRegistroPersona) {
 
-        this.activo = true;
-        this.nombre1 = datosRegistroPersona.nombre1();
-        this.nombre2 = datosRegistroPersona.nombre2();
-        this.apellido1 = datosRegistroPersona.apellido1();
-        this.apellido2 = datosRegistroPersona.apellido2();
-        this.movil = datosRegistroPersona.movil();
-        this.correo = datosRegistroPersona.correo();
-        this.usuario = datosRegistroPersona.usuario();
-        this.contrasena = datosRegistroPersona.contrasena();
-        this.rol = datosRegistroPersona.rol();
-        this.direccion = new Direccion(datosRegistroPersona.direccion());
+    this.activo = true;
+    this.nombre1 = datosRegistroPersona.nombre1();
+    this.nombre2 = datosRegistroPersona.nombre2();
+    this.apellido1 = datosRegistroPersona.apellido1();
+    this.apellido2 = datosRegistroPersona.apellido2();
+    this.movil = datosRegistroPersona.movil();
+    this.correo = datosRegistroPersona.correo();
+    this.usuario = datosRegistroPersona.usuario();
+    this.contrasena = datosRegistroPersona.contrasena();
+    this.rol = datosRegistroPersona.rol();
+    this.direccion = new Direccion(datosRegistroPersona.direccion());
+  }
+
+  public void actualizarPersona(ActualizarDatosPersona actualizarDatosPersona) {
+    if (actualizarDatosPersona.nombre1() != null) {
+      this.nombre1 = actualizarDatosPersona.nombre1();
     }
-
-    public void actualizarPersona(ActualizarDatosPersona actualizarDatosPersona) {
-        if (actualizarDatosPersona.nombre1() != null) {
-            this.nombre1 = actualizarDatosPersona.nombre1();
-        }
-        if (actualizarDatosPersona.nombre2() != null) {
-            this.nombre2 = actualizarDatosPersona.nombre2();
-        }
-        if (actualizarDatosPersona.apellido1() != null) {
-            this.apellido1 = actualizarDatosPersona.apellido1();
-        }
-        if (actualizarDatosPersona.apellido2() != null) {
-            this.apellido2 = actualizarDatosPersona.apellido2();
-        }
-        if (actualizarDatosPersona.nombre1() != null) {
-            this.movil = actualizarDatosPersona.movil();
-        }
-        if (actualizarDatosPersona.nombre1() != null) {
-            this.correo = actualizarDatosPersona.correo();
-        }
+    if (actualizarDatosPersona.nombre2() != null) {
+      this.nombre2 = actualizarDatosPersona.nombre2();
     }
-
-    public void desativarPersona() {
-        this.activo = false;
+    if (actualizarDatosPersona.apellido1() != null) {
+      this.apellido1 = actualizarDatosPersona.apellido1();
     }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.rol != null && this.rol.getRol() != null) {
-            return List.of(new SimpleGrantedAuthority("ROLE_" + this.rol.getRol().name()));
-        }
-        return List.of();
+    if (actualizarDatosPersona.apellido2() != null) {
+      this.apellido2 = actualizarDatosPersona.apellido2();
     }
-
-    @Override
-    public String getPassword() {
-        return contrasena;
+    if (actualizarDatosPersona.nombre1() != null) {
+      this.movil = actualizarDatosPersona.movil();
     }
-
-    @Override
-    public String getUsername() {
-        return usuario;
+    if (actualizarDatosPersona.nombre1() != null) {
+      this.correo = actualizarDatosPersona.correo();
     }
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+  public void actualizarContrasena(ActualizarDatosContrasena actualizarDatosContrasena) {
+    if (actualizarDatosContrasena.contrasena() != null) {
+      this.contrasena = actualizarDatosContrasena.contrasena();
     }
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+  public void desativarPersona() {
+    this.activo = false;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    if (this.rol != null && this.rol.getRol() != null) {
+      return List.of(new SimpleGrantedAuthority("ROLE_" + this.rol.getRol().name()));
     }
+    return List.of();
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public String getPassword() {
+    return contrasena;
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+  @Override
+  public String getUsername() {
+    return usuario;
+  }
 
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+
+  }
 }
