@@ -1,5 +1,6 @@
 package com.jimsimrodev.guerrasOlvidadas.adapter.controller;
 
+import com.jimsimrodev.guerrasOlvidadas.usecase.email.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import com.jimsimrodev.guerrasOlvidadas.adapter.dto.email.RegistroDatosEmail;
 import com.jimsimrodev.guerrasOlvidadas.adapter.dto.persona.ActualizarDatosContrasena;
 import com.jimsimrodev.guerrasOlvidadas.domain.model.Persona;
 import com.jimsimrodev.guerrasOlvidadas.infra.repository.PersonaRepository;
-import com.jimsimrodev.guerrasOlvidadas.infra.repository.IEmailService;
 import com.jimsimrodev.guerrasOlvidadas.usecase.PasswordEncoderService;
 
 import jakarta.transaction.Transactional;
@@ -47,8 +47,8 @@ public class MailController {
 
             mensaje = "Hola, ¿Cómo estás? " + nombre + apellido +
                     "\nAcabamos de recibir tu solicitud y queremos informarte que el usuario para ingresar a Guerra Olvidadas es: "
-                    + usuario + "\n y tu contraseña es: " + contrasena;
-            asunto = "Recordación de usuario y contraseña - De tu Hersomo y divertido juego Guerras Olvidadas";
+                    + usuario;
+            asunto = "Recordación de usuario - De tu Hersomo y divertido juego Guerras Olvidadas";
             emailService.enviarCorro(registroDatosEmail.destinatario(), asunto, mensaje);
 
             return ResponseEntity.ok("Mensaje enviado");
