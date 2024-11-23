@@ -35,21 +35,22 @@ public class MailController {
     @Autowired
     private IEmailService emailService;
 
+    //Request para recordación de usuario
     @PostMapping
     public ResponseEntity<?> ricibirPeticionEmail(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
         var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
         if (correo.isPresent()) {
             Persona persona = correo.get();
-            String nombre = persona.getNombre1() + " " + persona.getNombre2();
-            String apellido = " " + persona.getApellido1() + " " + persona.getApellido2();
-            String usuario = persona.getUsuario();
-            String contrasena = persona.getContrasena();
+            String nombre = persona.getNombre1() + " "
+                    + persona.getNombre2() + " "
+                    + persona.getApellido1() + " "
+                    + persona.getApellido2();
 
-            mensaje = "Hola, ¿Cómo estás? " + nombre + apellido +
-                    "\nAcabamos de recibir tu solicitud y queremos informarte que el usuario para ingresar a Guerra Olvidadas es: "
-                    + usuario;
+            String usuario = persona.getUsuario();
+
             asunto = "Recordación de usuario - De tu Hersomo y divertido juego Guerras Olvidadas";
-            emailService.enviarCorro(registroDatosEmail.destinatario(), asunto, mensaje);
+
+            emailService.recordarUsuario(registroDatosEmail.destinatario(), asunto, nombre, usuario);
 
             return ResponseEntity.ok("Mensaje enviado");
         } else {
@@ -58,21 +59,28 @@ public class MailController {
         }
     }
 
+    //Request para restablecer contraseña
     @PostMapping("/reestablecer")
     public ResponseEntity<?> reestablecerContrasena(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
         var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
-
-        System.out.println(registroDatosEmail.destinatario());
-        mensaje = "https://www.dropbox.com/scl/fi/a80inyksznd6oravzn2wa/jhon.gif?rlkey=t8463z0krs550darhh95ozbb1&st=lk8zsgxv&dl=0";
+        asunto = "Reestablecer contraseña - De tu Hersomo y divertido juego Guerras Olvidadas";
 
         if (correo.isPresent()) {
-            emailService.enviarCorro(registroDatosEmail.destinatario(), asunto, mensaje);
+
+            Persona persona = correo.get();
+            String nombre = persona.getNombre1() + " "
+                    + persona.getNombre2() + " "
+                    + persona.getApellido1() + " "
+                    + persona.getApellido2();
+
+            emailService.enviarLink(registroDatosEmail.destinatario(), asunto, nombre);
             return ResponseEntity.ok("Revisa tu bandeaj de entrada");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("El correo " + registroDatosEmail.destinatario() + " no esta en la base de datos");
     }
 
+    //Request para actualizar la nueva contraseña
     @PutMapping
     @Transactional
     public ResponseEntity<?> actualizarContrasena(

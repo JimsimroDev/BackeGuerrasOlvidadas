@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Correo de Guerra Olvidadas</title>
+</head>
+<body>
+<table style="width: 80%; text-align: center; border-radius: 3rem;">
+    <tr>
+        <td>
+            <img style="width: 60%; text-align: center; border-radius: 3rem;" th:src="@{cid:logo}"
+                 alt="Logo de Guerra Olvidadas"/>
+        </td>
+    </tr>
+</table>
+<h1>¡Recibimos tu solicitud!</h1>
+<h2>Hola, <span th:text="${nombre}"></span>!</h2>
+<p>¿Cómo estás? Acabamos de recibir tu solicitud y queremos informarte que el usuario para ingresar a tu juego: <strong>Guerra
+    Olvidadas</strong> es:</p>
+<p><strong th:text="${usuario}"></strong></p>
+<p>Si necesitas ayuda, no dudes en contactarnos.</p>
+<p>Saludos,<br>El equipo de Guerra Olvidadas</p>
+</body>
+</html>
