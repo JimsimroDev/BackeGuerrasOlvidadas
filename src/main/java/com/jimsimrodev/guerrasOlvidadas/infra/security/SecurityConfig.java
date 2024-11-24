@@ -23,8 +23,6 @@ public class SecurityConfig {
 
   @Autowired
   private SecurityFilter securityFilter;
-  @Autowired
-  private AutenticationService autenticationService;
 
   // Configuración del SecurityFilterChain (la nueva forma)
   @Bean

@@ -23,78 +23,77 @@ import jakarta.validation.Valid;
 @RequestMapping("/enviarCorreo")
 public class MailController {
 
-    private String mensaje = "";
-    private String asunto = "";
+  private String asunto = "";
 
-    @Autowired
-    private PasswordEncoderService passwordEncoderService;
+  @Autowired
+  private PasswordEncoderService passwordEncoderService;
 
-    @Autowired
-    private PersonaRepository personaRepository;
+  @Autowired
+  private PersonaRepository personaRepository;
 
-    @Autowired
-    private IEmailService emailService;
+  @Autowired
+  private IEmailService emailService;
 
-    //Request para recordación de usuario
-    @PostMapping
-    public ResponseEntity<?> ricibirPeticionEmail(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
-        var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
-        if (correo.isPresent()) {
-            Persona persona = correo.get();
-            String nombre = persona.getNombre1() + " "
-                    + persona.getNombre2() + " "
-                    + persona.getApellido1() + " "
-                    + persona.getApellido2();
+  // Request para recordación de usuario
+  @PostMapping
+  public ResponseEntity<?> ricibirPeticionEmail(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
+    var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
+    if (correo.isPresent()) {
+      Persona persona = correo.get();
+      String nombre = persona.getNombre1() + " "
+          + persona.getNombre2() + " "
+          + persona.getApellido1() + " "
+          + persona.getApellido2();
 
-            String usuario = persona.getUsuario();
+      String usuario = persona.getUsuario();
 
-            asunto = "Recordación de usuario - De tu Hersomo y divertido juego Guerras Olvidadas";
+      asunto = "Recordación de usuario - De tu Hersomo y divertido juego Guerras Olvidadas";
 
-            emailService.recordarUsuario(registroDatosEmail.destinatario(), asunto, nombre, usuario);
+      emailService.recordarUsuario(registroDatosEmail.destinatario(), asunto, nombre, usuario);
 
-            return ResponseEntity.ok("Mensaje enviado");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("El correo no existe o no esta registrado" + registroDatosEmail.destinatario());
-        }
+      return ResponseEntity.ok("Mensaje enviado");
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body("El correo no existe o no esta registrado" + registroDatosEmail.destinatario());
     }
+  }
 
-    //Request para restablecer contraseña
-    @PostMapping("/reestablecer")
-    public ResponseEntity<?> reestablecerContrasena(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
-        var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
-        asunto = "Reestablecer contraseña - De tu Hersomo y divertido juego Guerras Olvidadas";
+  // Request para restablecer contraseña
+  @PostMapping("/reestablecer")
+  public ResponseEntity<?> reestablecerContrasena(@RequestBody @Valid RegistroDatosEmail registroDatosEmail) {
+    var correo = personaRepository.findByCorreo(registroDatosEmail.destinatario());
+    asunto = "Reestablecer contraseña - De tu Hersomo y divertido juego Guerras Olvidadas";
 
-        if (correo.isPresent()) {
+    if (correo.isPresent()) {
 
-            Persona persona = correo.get();
-            String nombre = persona.getNombre1() + " "
-                    + persona.getNombre2() + " "
-                    + persona.getApellido1() + " "
-                    + persona.getApellido2();
+      Persona persona = correo.get();
+      String nombre = persona.getNombre1() + " "
+          + persona.getNombre2() + " "
+          + persona.getApellido1() + " "
+          + persona.getApellido2();
 
-            emailService.enviarLink(registroDatosEmail.destinatario(), asunto, nombre);
-            return ResponseEntity.ok("Revisa tu bandeaj de entrada");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("El correo " + registroDatosEmail.destinatario() + " no esta en la base de datos");
+      emailService.enviarLink(registroDatosEmail.destinatario(), asunto, nombre);
+      return ResponseEntity.ok("Revisa tu bandeaj de entrada");
     }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body("El correo " + registroDatosEmail.destinatario() + " no esta en la base de datos");
+  }
 
-    //Request para actualizar la nueva contraseña
-    @PutMapping
-    @Transactional
-    public ResponseEntity<?> actualizarContrasena(
-            @RequestBody @Valid ActualizarDatosContrasena actualizarDatosContrasena) {
-        var persona = personaRepository.getReferenceById(actualizarDatosContrasena.id());
+  // Request para actualizar la nueva contraseña
+  @PutMapping
+  @Transactional
+  public ResponseEntity<?> actualizarContrasena(
+      @RequestBody @Valid ActualizarDatosContrasena actualizarDatosContrasena) {
+    var persona = personaRepository.getReferenceById(actualizarDatosContrasena.id());
 
-        var contrasenaEncriptada = passwordEncoderService.encodePassword(actualizarDatosContrasena.contrasena());
+    var contrasenaEncriptada = passwordEncoderService.encodePassword(actualizarDatosContrasena.contrasena());
 
-        actualizarDatosContrasena = new ActualizarDatosContrasena(
-                actualizarDatosContrasena.id(),
-                contrasenaEncriptada);
+    actualizarDatosContrasena = new ActualizarDatosContrasena(
+        actualizarDatosContrasena.id(),
+        contrasenaEncriptada);
 
-        persona.actualizarContrasena(actualizarDatosContrasena);
+    persona.actualizarContrasena(actualizarDatosContrasena);
 
-        return ResponseEntity.ok("contraseña actualizada");
-    }
+    return ResponseEntity.ok("contraseña actualizada");
+  }
 }

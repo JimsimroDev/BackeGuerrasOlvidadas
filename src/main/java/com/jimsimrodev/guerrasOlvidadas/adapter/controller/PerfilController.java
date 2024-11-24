@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/perfil")
 public class PerfilController {
 
-    @Autowired
-    private PerfilRepository perfilRepository;
+  @Autowired
+  private PerfilRepository perfilRepository;
 
-    @PostMapping
-    public ResponseEntity<?> crearNuevoPerfil(@RequestBody @Valid RegistrarDatosPerfil registrarDatosPerfil) {
+  @PostMapping
+  public ResponseEntity<?> crearNuevoPerfil(@RequestBody @Valid RegistrarDatosPerfil registrarDatosPerfil) {
 
-        registrarDatosPerfil = new RegistrarDatosPerfil(registrarDatosPerfil.rol());
+    registrarDatosPerfil = new RegistrarDatosPerfil(registrarDatosPerfil.rol());
 
-        Perfil rol = perfilRepository.save(new Perfil(registrarDatosPerfil));
-        if (rol != null) {
-            return ResponseEntity.ok("Nuevo perfil creado con exito");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ingresaron datso formulario vacio");
-        }
+    Perfil rol = perfilRepository.save(new Perfil(registrarDatosPerfil));
+    if (rol != null) {
+      return ResponseEntity.ok("Nuevo perfil creado con exito");
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ingresaron datso formulario vacio");
     }
+  }
 }
