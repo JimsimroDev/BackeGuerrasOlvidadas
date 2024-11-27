@@ -16,7 +16,7 @@ D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\adapter\
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\config\CorsConfiguration.java
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\config\MailConfig.java
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\config\SwaggerConfig.java
-D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\domain\model\Direccion.java
+D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\domain\model\direccion\Direccion.java
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\domain\model\HistoriaJuego.java
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\domain\model\perfil\Perfil.java
 D:\work\guerrasOlvidadas\src\main\java\com\jimsimrodev\guerrasOlvidadas\domain\model\perfil\Rol.java

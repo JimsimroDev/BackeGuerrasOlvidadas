@@ -67,13 +67,19 @@
             <artifactId>java-jwt</artifactId>
             <version>4.4.0</version>
         </dependency>
-        <!--  Dependencia Configuracion para conecctar a sqlserver-->
+        <!--  Dependencia Configuracion para conecctar a sqlserver
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency>-->
 
+        <!--  Dependencia Configuracion para conecctar a posgrestsql-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- Dependencia Configuracion para conecctar a Mysql
         <dependency>

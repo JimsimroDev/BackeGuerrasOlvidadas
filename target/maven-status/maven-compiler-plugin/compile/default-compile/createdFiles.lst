@@ -7,7 +7,6 @@ com\jimsimrodev\guerrasOlvidadas\usecase\persona\PersonaService.class
 com\jimsimrodev\guerrasOlvidadas\adapter\controller\MailController.class
 com\jimsimrodev\guerrasOlvidadas\GuerrasOlvidadasApplication.class
 com\jimsimrodev\guerrasOlvidadas\adapter\dto\perfil\DatosPerfil.class
-com\jimsimrodev\guerrasOlvidadas\domain\model\Direccion.class
 com\jimsimrodev\guerrasOlvidadas\usecase\email\EmailServerImpl.class
 com\jimsimrodev\guerrasOlvidadas\adapter\controller\HistoriaJuegoController.class
 com\jimsimrodev\guerrasOlvidadas\domain\model\perfil\Perfil.class
@@ -29,8 +28,10 @@ com\jimsimrodev\guerrasOlvidadas\usecase\email\IEmailService.class
 com\jimsimrodev\guerrasOlvidadas\usecase\PasswordEncoderService.class
 com\jimsimrodev\guerrasOlvidadas\infra\security\SecurityConfig.class
 com\jimsimrodev\guerrasOlvidadas\adapter\dto\historiaJuego\RegistroDatosJuego.class
+com\jimsimrodev\guerrasOlvidadas\config\CorsConfiguration.class
 com\jimsimrodev\guerrasOlvidadas\infra\repository\HistoriaJuegoRepository.class
 com\jimsimrodev\guerrasOlvidadas\adapter\dto\persona\ActualizarDatosContrasena.class
+com\jimsimrodev\guerrasOlvidadas\domain\model\direccion\Direccion.class
 com\jimsimrodev\guerrasOlvidadas\infra\security\TokenService.class
 com\jimsimrodev\guerrasOlvidadas\infra\security\SecurityFilter.class
 com\jimsimrodev\guerrasOlvidadas\adapter\controller\LoginController.class
