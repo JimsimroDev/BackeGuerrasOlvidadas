@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  app:
+    build: guerrasOlvidadas
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: guerrasOlvidadas
+      DB_USER: postgres
+      DB_PASSWORD: Ingeniero20
+      DB_NAME: guerrasOlvidadas
+    restart: always
+    depends_on:
+      guerrasOlvidadas:
+        condition: service_healthy
+
+  guerrasOlvidadas:
+    image: postgres:13 # Usar la imagen oficial de PostgreSQL
+    ports:
+      - "5432:5432"  # El puerto de PostgreSQL es el 5432 por defecto
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Ingeniero20
+      POSTGRES_DB: guerrasOlvidadas
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]  # Usar pg_isready para verificar la base de datos
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
