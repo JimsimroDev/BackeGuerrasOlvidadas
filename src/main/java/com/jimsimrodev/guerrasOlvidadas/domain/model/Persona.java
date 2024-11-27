@@ -81,27 +81,6 @@ public class Persona implements UserDetails {
     this.direccion = new Direccion(datosRegistroPersona.direccion());
   }
 
-  public void actualizarPersona(ActualizarDatosPersona actualizarDatosPersona) {
-    if (actualizarDatosPersona.nombre1() != null) {
-      this.nombre1 = actualizarDatosPersona.nombre1();
-    }
-    if (actualizarDatosPersona.nombre2() != null) {
-      this.nombre2 = actualizarDatosPersona.nombre2();
-    }
-    if (actualizarDatosPersona.apellido1() != null) {
-      this.apellido1 = actualizarDatosPersona.apellido1();
-    }
-    if (actualizarDatosPersona.apellido2() != null) {
-      this.apellido2 = actualizarDatosPersona.apellido2();
-    }
-    if (actualizarDatosPersona.nombre1() != null) {
-      this.movil = actualizarDatosPersona.movil();
-    }
-    if (actualizarDatosPersona.nombre1() != null) {
-      this.correo = actualizarDatosPersona.correo();
-    }
-  }
-
   public void actualizarContrasena(ActualizarDatosContrasena actualizarDatosContrasena) {
     if (actualizarDatosContrasena.contrasena() != null) {
       this.contrasena = actualizarDatosContrasena.contrasena();
