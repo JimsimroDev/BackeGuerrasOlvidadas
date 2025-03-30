@@ -27,12 +27,17 @@ import jakarta.validation.Valid;
 @RequestMapping("/personas")
 public class PersonaController {
 
+  private final PersonaServiceImpl personaServiceImpl;
+
   @Autowired
-  private PersonaServiceImpl personaServiceImpl;
+  public PersonaController(PersonaServiceImpl personaServiceImpl) {
+    this.personaServiceImpl = personaServiceImpl;
+  }
 
   @GetMapping
   // @PreAuthorize("hasRole('ADMINISTRADOR')")
-  public ResponseEntity<Page<ListarDatosPersona>> listarPersonas(@PageableDefault(size = 9) Pageable paginacion) {
+  public ResponseEntity<Page<ListarDatosPersona>> listarPersonas(
+      @PageableDefault(page = 0, sort = "nombre1", size = 9) Pageable paginacion) {
     return ResponseEntity.ok(personaServiceImpl.getPersona(paginacion));
   }
 
@@ -45,7 +50,7 @@ public class PersonaController {
     try {
       // Guardar la persona usando el servicio
       personaServiceImpl.guardarPersona(datosRegistroPersona);
-      return ResponseEntity.ok("Registro Exitoso!");
+      return ResponseEntity.status(HttpStatus.CREATED).body("Persona Creada con  Exitoso!");
     } catch (Exception e) {
       // Si ocurre algún error en la lógica de guardado
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

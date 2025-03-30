@@ -67,7 +67,6 @@ public class Persona implements UserDetails {
     private List<HistoriaJuego> historiaJuegos;
 
     public Persona(DatosRegistroPersona datosRegistroPersona) {
-
         this.activo = true;
         this.nombre1 = datosRegistroPersona.nombre1();
         this.nombre2 = datosRegistroPersona.nombre2();
